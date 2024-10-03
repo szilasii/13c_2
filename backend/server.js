@@ -1,8 +1,16 @@
 import express from "express";
+import cors from "cors";
 const app =express();
 const port = 3000;
 const host = "localhost";
 
+// app.use(function (req, res, next) {
+//     res.setHeader(
+//       'Access-Control-Allow-Origin','*'
+//     );
+//     next();
+//   });
+app.use(cors());
 const persons = [
   {name:"Maci Laci", address:"Yellowstone"},
   {name:"Bubu", address:"Yellowstone"},
