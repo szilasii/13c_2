@@ -50,6 +50,27 @@ app.post('/save',(req, res) => {
     res.status(200).json({success: "Sikeres adatrögzítés"});
     console.log(persons);
 })
+app.put('/modify',(req, res) => {
+  const {id,name,address} = req.body
+    if (!id,!name && !address) {
+      res.status(400).json({error: "Nem adta meg megfelelően az adatokat"})
+      return
+    }
+    persons[id].name = name;
+    persons[id].address= address;
+    res.status(200).json({success: "Sikeres adatrögzítés"});
+    console.log(persons);
+})
+app.delete('/delete',(req, res) => {
+  const {id} = req.body
+  if (!id) {
+    res.status(400).json({error: "Nem adta meg megfelelően az adatokat"})
+    return
+  }
+  delete persons[id];
+  res.status(200).json({success: "Sikeres törlés"});
+  console.log(persons);
+})
 
 
 app.listen(port,() => { console.log(`A szerver a http://${host}:${port}-on fut`)});
