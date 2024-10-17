@@ -1,4 +1,4 @@
-import express from "express"  //express modul inportálása
+import express from "express"  //express modul importálása
 import cors from "cors" //cors modul importálása
 import bodyParser from "body-parser" //bodyparser modul importálása
 
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
   }));
 
 
-// Exportáljuk app változót, hogy más fájlokban használhassuk a tartalmát  
+// Exportáljuk app változót, hogy más fájlokban/modulokban használhassuk a "tartalmát"  
 export default app;  
 
 
