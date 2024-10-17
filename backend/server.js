@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser"
+import { idToIndex } from "./functions.js"
 const app =express();
 const port = 3000;
 const host = "localhost";
@@ -14,12 +15,11 @@ const host = "localhost";
 app.use(cors());
 app.use(bodyParser.json())
 const persons = [
-  {name:"Maci Laci", address:"Yellowstone"},
-  {name:"Bubu", address:"Yellowstone"},
-  {name:"Mekk Elek", address:"Budapest"},
-  {name:"Hack Elek", address:"Budapest"}
+  {id:1,name:"Maci Laci", address:"Yellowstone"},
+  {id:2,name:"Bubu", address:"Yellowstone"},
+  {id:5,name:"Mekk Elek", address:"Budapest"},
+  {id:4,name:"Hack Elek", address:"Budapest"}
 ]
-
 
 app.get('/',(req,res)=>{
     res.send('Hello haver!')
@@ -27,8 +27,8 @@ app.get('/',(req,res)=>{
 app.post('/data',(req,res) => {
     res.send(persons)
 })
-app.post('/search',(req,res) => {
-    const {searched} = req.body
+app.get('/search',(req,res) => {
+  const {searched} = req.query
     if (!searched) {
       res.status(400).json({error: "Nem adtad meg a keresendő szöveget"})
       return
@@ -42,7 +42,7 @@ app.post('/search',(req,res) => {
 })
 app.post('/save',(req, res) => {
     const {name,address} = req.body
-    if (!name && !address) {
+    if (!name || !address) {
       res.status(400).json({error: "Nem adta meg megfelelően az adatokat"})
       return
     }
@@ -52,22 +52,25 @@ app.post('/save',(req, res) => {
 })
 app.put('/modify',(req, res) => {
   const {id,name,address} = req.body
-    if (!id,!name && !address) {
+  let ids = idToIndex(id)
+ 
+  if (ids || !id || !name || !address) {
       res.status(400).json({error: "Nem adta meg megfelelően az adatokat"})
       return
     }
-    persons[id].name = name;
-    persons[id].address= address;
+    persons[ids].name = name;
+    persons[ids].address= address;
     res.status(200).json({success: "Sikeres adatrögzítés"});
     console.log(persons);
 })
 app.delete('/delete',(req, res) => {
   const {id} = req.body
-  if (!id) {
+  let ids = idToIndex(id)
+  if (ids || !id || !((id-1 > -1) && (id-1 < persons.length))) {
     res.status(400).json({error: "Nem adta meg megfelelően az adatokat"})
     return
   }
-  delete persons[id];
+  delete persons[ids];
   res.status(200).json({success: "Sikeres törlés"});
   console.log(persons);
 })
