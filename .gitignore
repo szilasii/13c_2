@@ -1,2 +1,5 @@
 RestApi/node_modules
 RestApi/package-lock.json
+chat/backend/node_modules
+chat/backend/package-lock.json
+chat/backend/.env
