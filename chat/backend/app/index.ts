@@ -1,16 +1,20 @@
-import express from "express"
-import cors from "cors"
-import bodyParser from "body-parser"
+import express from "express"  //express modul inportálása
+import cors from "cors" //cors modul importálása
+import bodyParser from "body-parser" //bodyparser modul importálása
 
-const app= express()
+const app= express() //express modul példányosítássa
 
-app.use(cors({origin:'*'}))
-app.use(express.json())
+app.use(cors({origin:'*'})) // CORS (Eredet ellenörzés) beállítása a szerver bárhonnan elérhető 
+
+/*Headerben, body-ban küldött adatok visszanyerése json-ból*/
+app.use(express.json()) 
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({
     extended: true
   }));
 
+
+// Exportáljuk app változót, hogy más fájlokban használhassuk a tartalmát  
 export default app;  
 
 
