@@ -1,4 +1,7 @@
 import app from "./index"
+import dotenv from "dotenv"
+dotenv.config()
+const {PORT} = process.env;
 
 //Gyökér végpont definiálása, a szerver státuszának kiírására 
 app.get('/',(req,res)=>{
@@ -7,6 +10,6 @@ app.get('/',(req,res)=>{
 
 
  //szerver futtatása a megadott porton
-app.listen(3000, ()=> {
-    console.log("fut a szerver");
+app.listen(PORT, ()=> {
+    console.log(`Fut a szerver a ${PORT}-on`);
 })
