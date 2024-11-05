@@ -1,15 +1,22 @@
-import app from "./index"
-import dotenv from "dotenv"
-dotenv.config()
-const {PORT} = process.env;
+import express from "express"  //express modul importálása
+import cors from "cors" //cors modul importálása
+import bodyParser from "body-parser" //bodyparser modul importálása
+import userRouter from "../user/router"
+const app = express() //express modul példányosítássa
 
-//Gyökér végpont definiálása, a szerver státuszának kiírására 
-app.get('/',(req,res)=>{
-    res.send("szerver fut")
-})
+app.use(cors({origin:'*'})) // CORS (Eredet ellenörzés) beállítása a szerver bárhonnan elérhető 
+
+/*Headerben, body-ban küldött adatok visszanyerése json-ból*/
+app.use(express.json()) 
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+  }));
+
+app.use('/api',userRouter)  
 
 
- //szerver futtatása a megadott porton
-app.listen(PORT, ()=> {
-    console.log(`Fut a szerver a ${PORT}-on`);
-})
+// Exportáljuk app változót, hogy más fájlokban/modulokban használhassuk a "tartalmát"  
+export default app;  
+
+
