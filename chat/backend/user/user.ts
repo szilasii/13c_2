@@ -1,33 +1,44 @@
+import dbConfig from "../app/config"
+import mysql from 'mysql2/promise'
+
 export interface IUser {
-    UserId: number | null
-    Name: string
-    Email: string
-    PhoneNumber: string | null
-    PassWord: string | null
+    UserId?: number
+    Name?: string
+    Email?: string
+    PhoneNumber?: string
+    PassWord?: string
 }
 
 export class User implements IUser {
-    UserId: number | null
-    Name: string
-    Email: string
-    PhoneNumber: string | null
-    PassWord: string | null
+    UserId?: number
+    Name?: string
+    Email?: string
+    PhoneNumber?: string
+    PassWord?: string
 
-    constructor (UserId:number | null,
-         Name:string,
-         Email:string,
-         PhoneNumber:string | null,
-         PassWord:string | null)
-        {
-            this.UserId = UserId;
-            this.Name = Name;
-            this.Email = Email;
-            this.PhoneNumber = PhoneNumber;
-            this.PassWord = PassWord;
-        }  
-        nagybetu : any = () => {
-        return this.Name.toLocaleLowerCase()
-    }       
+    // constructor (UserId:number | null,
+    //      Name:string,
+    //      Email:string,
+    //      PhoneNumber:string | null,
+    //      PassWord:string | null)
+    //     {
+    //         this.UserId = UserId;
+    //         this.Name = Name;
+    //         this.Email = Email;
+    //         this.PhoneNumber = PhoneNumber;
+    //         this.PassWord = PassWord;
+    //     }  
+    nagybetu : any = () => {
+        return this.Name?.toLocaleLowerCase()
+    }
+    
+    async setUser(UserId : number) {
+        const conn = await mysql.createConnection(dbConfig)
+        const[rows] : any =  await conn.execute('Select UserId,Name,Email,PhoneNumber from users where UserId = ?',[UserId])
+        Object.assign(this,rows[0])
+    }
+    
+    
 }
 
 
