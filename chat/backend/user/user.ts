@@ -1,34 +1,32 @@
-interface IUser {
-    userId: number | null
-    name: string
-    email: string
-    phoneNumber: string | null
-    password: string | null
+export interface IUser {
+    UserId: number | null
+    Name: string
+    Email: string
+    PhoneNumber: string | null
+    PassWord: string | null
 }
 
 export class User implements IUser {
-    userId: number | null
-    name: string
-    email: string
-    phoneNumber: string | null
-    password: string | null
+    UserId: number | null
+    Name: string
+    Email: string
+    PhoneNumber: string | null
+    PassWord: string | null
 
-    constructor (userId:number | null,
-         name:string,
-         email:string,
-         phoneNumber:string | null,
-         password:string | null)
+    constructor (UserId:number | null,
+         Name:string,
+         Email:string,
+         PhoneNumber:string | null,
+         PassWord:string | null)
         {
-            this.userId = userId;
-            this.name = name;
-            this.email = email;
-            this.phoneNumber = phoneNumber;
-            this.password = password;
+            this.UserId = UserId;
+            this.Name = Name;
+            this.Email = Email;
+            this.PhoneNumber = PhoneNumber;
+            this.PassWord = PassWord;
         }  
         nagybetu : any = () => {
-        return this.name.toLocaleLowerCase()
-
-        
+        return this.Name.toLocaleLowerCase()
     }       
 }
 

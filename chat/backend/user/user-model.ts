@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import mysql from 'mysql2'
 import dbConfig from '../app/config'
-import { User } from './user'
+import { IUser } from './user'
 
 export function getUserFromId(req:Request, res : Response) {
-    if (!req.params.id)
+    if (!req.params.UserId)
     {
         res.status(401).send({error: "Hiányzó felhasználó azonosító"})
         return
@@ -18,17 +18,17 @@ export function getUserFromId(req:Request, res : Response) {
         }
         console.log("Sikeres csatlakozás")
     })
-    conn.query('select name,email,phoneNumber from users where userid = ?',[req.params.id],(err,result:any) =>{
+    conn.query('select name,email,phoneNumber from users where userid = ?',[req.params.UserId],(err,result:any) =>{
         if (err) {
             res.status(500).send({error: "Hiba az adatok lekérdezése során!"})
             return
         }
-        const users : User[] = result
-       if (users.length < 1) {
+        const user : IUser = result[0]
+       if (!user.Name) {
         res.status(404).send({error: "Nem létező felhasználó"})
         return
        }
-        res.status(200).send(users[0])
+        res.status(200).send(user)
     })
 }
     export function getUsers(req:Request, res : Response) {
@@ -44,7 +44,7 @@ export function getUserFromId(req:Request, res : Response) {
                 res.status(500).send({error: "Hiba az adatok lekérdezése során!"})
                 return
             }
-            const users : User[] = result
+            const users : IUser[] = result
            if (users.length < 1) {
             res.status(404).send({error: "Nem létező felhasználó"})
             return
