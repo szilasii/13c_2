@@ -4,14 +4,25 @@ import mysqlP from 'mysql2/promise'
 import dbConfig from '../app/config'
 import { IUser,User } from './user'
 
-export function getUserFromId(req:Request, res : Response) {
+export async function getUserFromId(req:Request, res : Response) {
     if (!req.params.UserId)
     {
         res.status(401).send({error: "Hiányzó felhasználó azonosító"})
         return
     }
     const user : User = new User()
-    user.setUser(parseInt(req.params.UserId as string))
+    const siker = await user.loadDataFromDB(parseInt(req.params.UserId as string))
+
+    if (!siker) {
+        res.status(500).send({error: "Hiba az adatok lekérdezése során!"})
+        return
+    }
+    if (!user.Name) {
+        res.status(404).send({error: "Nem létező felhasználó"})
+        return
+    }
+    res.send(user)
+
       // let conn = mysql.createConnection(dbConfig)
     // conn.connect((err)=>{
     //     if (err) {
@@ -73,15 +84,25 @@ export function getUserFromId(req:Request, res : Response) {
         }
        
     }
-    export async function updateUser(req:Request, res : Response) {
-        if (!req.params.UserId) {
+    export async function updateUser(req:Request, res : any) {
+        if (!res.decodedToken.UserId) {
             res.status(401).send({error:"Hiányzó patraméter"})
             return
         }
-        const user : User = req.body as User
+        
+        const oldUser : User = new User()
+        const loadDataOk = await oldUser.loadDataFromDB(parseInt(res.decodedToken.UserId as string))
+        let user : User = oldUser as User
+        Object.assign(user,req.body)
+        if(!loadDataOk || !user.Name) {
+            res.status(500).send({errot:'A felhasználó nem létezik'})
+            return
+        } 
+
+       
         try {
             const conn = await mysqlP.createConnection(dbConfig)
-            const [rows] :any = await conn.execute('Update users set Name =?,Email=?, PhoneNumber=? where UserId =?',[user.Name,user.Email,user.PhoneNumber,req.params.UserId])
+            const [rows] :any = await conn.execute('Update users set Name =?,Email=?, PhoneNumber=? where UserId =?',[user.Name,user.Email,user.PhoneNumber,res.decodedToken.UserId])
             user.PassWord=undefined
             res.status(201).send({message:"Sikeres adatrögzítés",data:user as IUser})
         }
@@ -95,16 +116,15 @@ export function getUserFromId(req:Request, res : Response) {
             return
         }
     }
-    export async function deleteUser(req:Request, res : Response) {
-        if (!req.params.UserId) {
+    export async function deleteUser(req:Request, res : any) {
+        if (!res.decodedToken.UserId) {
             res.status(401).send({error:"Hiányzó patraméter"})
             return
         }
      
         try {
             const conn = await mysqlP.createConnection(dbConfig)
-            const [rows] :any = await conn.execute('delete from users where UserId= ? ',[req.params.UserId])
-            console.log(rows)
+            const [rows] :any = await conn.execute('delete from users where UserId= ? ',[res.decodedToken.UserId])
             if (rows.affectedRows > 0) {
                 //res.status(204)
                 res.status(200).send({message:"Sikeres adattörlés!"})  

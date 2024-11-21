@@ -7,6 +7,7 @@ export interface IUser {
     Email?: string
     PhoneNumber?: string
     PassWord?: string
+    token?: string
 }
 
 export class User implements IUser {
@@ -15,6 +16,7 @@ export class User implements IUser {
     Email?: string
     PhoneNumber?: string
     PassWord?: string
+    token?:string
 
     // constructor (UserId:number | null,
     //      Name:string,
@@ -31,14 +33,34 @@ export class User implements IUser {
     nagybetu : any = () => {
         return this.Name?.toLocaleLowerCase()
     }
+    osszesadat : any = () => {
+        return this
+    } 
     
-    async setUser(UserId : number) {
-        const conn = await mysql.createConnection(dbConfig)
-        const[rows] : any =  await conn.execute('Select UserId,Name,Email,PhoneNumber from users where UserId = ?',[UserId])
-        Object.assign(this,rows[0])
+    async loadDataFromDB(UserId : number) : Promise<boolean> {
+        try {
+            const conn = await mysql.createConnection(dbConfig)
+            const[rows] : any =  await conn.execute('Select UserId,Name,Email,PhoneNumber from users where UserId = ?',[UserId])
+            Object.assign(this,rows[0])
+            return true
+        }
+        catch {
+            return false
+        }
     }
-    
-    
+    static async validUser (Email:string,PassWord:string) : Promise<number> {
+        try{
+            const sql : string = 'select login(?,?) as UserId'
+            const conn = await mysql.createConnection(dbConfig)
+            const[rows] : any = await conn.execute(sql,[Email,PassWord])  
+            return rows[0].UserId
+        } catch (err) {
+            console.log(err)
+            return 0
+        }
+        
+        
+    }
 }
 
 
