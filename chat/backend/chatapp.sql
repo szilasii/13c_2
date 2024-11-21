@@ -1,8 +1,6 @@
 -- Active: 1725523237274@@127.0.0.1@3306@chatapp
 
 
-
-
 --
 -- Adatbázis: `chatapp`
 --
@@ -16,6 +14,8 @@ USE `chatapp`;
   Foreign KEY (BlockinguserId) REFERENCES chats(ChatId) on delete CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+drop table blocks;
+
 CREATE TABLE IF NOT EXISTS `chatmembers` (
   `ChatId` int(11) NOT NULL,
   `UserId` int(11) NOT NULL,
@@ -23,12 +23,14 @@ CREATE TABLE IF NOT EXISTS `chatmembers` (
   Foreign Key (UserId) REFERENCES users(UserId) on delete CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+drop table chatmembers;
 
 CREATE TABLE IF NOT EXISTS `chats` (
   `ChatId` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `ChatName` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE chats;
 
 CREATE TABLE IF NOT EXISTS `friendrequests` (
   `SenderId` int(11) NOT NULL,
@@ -62,6 +64,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `PhoneNumber` varchar(15) DEFAULT NULL,
   `PassWord` BLOB NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+alter table chats add Owner INTEGER
+
 drop TRIGGER insertUser;
 delimiter //
 CREATE Trigger insertUser
