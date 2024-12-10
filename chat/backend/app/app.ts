@@ -4,6 +4,7 @@ import bodyParser from "body-parser" //bodyparser modul importálása
 import userRouter from "../user/router"
 import loginUser from "../login/router"
 import chatsRouter from "../chats/router"
+import uploadRouter from "../upload/router"
 const app = express() //express modul példányosítássa
 
 app.use(cors({origin:'*'})) // CORS (Eredet ellenörzés) beállítása a szerver bárhonnan elérhető 
@@ -17,7 +18,9 @@ app.use(bodyParser.urlencoded({
 
 app.use('/api',userRouter)
 app.use('/api',chatsRouter)
+app.use('/',uploadRouter)
 app.use('/',loginUser)  
+
 
 
 // Exportáljuk app változót, hogy más fájlokban/modulokban használhassuk a "tartalmát"  
