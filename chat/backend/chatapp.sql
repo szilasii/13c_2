@@ -1,4 +1,4 @@
--- Active: 1725523237274@@127.0.0.1@3306@chatapp
+-- Active: 1725523237274@@127.0.0.1@3306/chatapp
 
 
 --
@@ -64,6 +64,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `PhoneNumber` varchar(15) DEFAULT NULL,
   `PassWord` BLOB NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+create Table if not EXISTS file (
+  FileId varchar(255) not null primary key UNIQUE,
+  FileName varchar(255) NOT NULL,
+  UploadTime TIMESTAMP default CURRENT_TIMESTAMP(),
+  UserId int(11),
+ Foreign Key (UserId) REFERENCES users(UserId));
+
+)
 
 alter table chats add Owner INTEGER
 

@@ -5,7 +5,7 @@ const router: Router = Router()
 
 router.get('/file/:name', download)
 router.get('/files',getFileList)
-router.post('/upload', upload)
+router.post('/upload', auth,upload)
 // router.put('/user',auth,user.updateUser)
 // router.delete('/user',auth,user.deleteUser)
 

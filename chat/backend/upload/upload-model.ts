@@ -1,14 +1,22 @@
 import { Request,Response } from "express"
 import { uploadMiddleware } from "./upload"
+import {File} from "../file/file"
 import * as fs from "fs"
 
 export const upload = async (req:Request,res:any)=> {
     try {
         await uploadMiddleware(req,res)
-        if (!req.file) {
+        
+        
+        if (!req.file || !res.decodedToken ) {
             return res.status(400).send({message:"Töltsön fel fájlt!"})
         }
+        
+        const file = new File(req.file,res.decodedToken.UserId)
+        file.saveDataToDb()
+        
         res.status(200).send({message:`Sikeresen eltöltött: ${req.file.originalname}`})
+        console.log(req.file.filename)
     } catch (err) {
         res.status(500).send({message: "A feltöltés nem sikerült!",error:err})
     }
