@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/multer": "^1.4.12",
@@ -19,8 +20,7 @@
     "tslib": "^2.8.0",
     "typescript": "^5.6.3"
   },
-  "dependencies": {
-    "@types/jsonwebtoken": "^9.0.7",
+  "dependencies": {    
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
