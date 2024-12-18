@@ -6,9 +6,10 @@ import * as fs from "fs"
 export const upload = async (req:Request,res:any)=> {
     try {
         await uploadMiddleware(req,res)
-        
-        
-        if (!req.file || !res.decodedToken ) {
+        if (!res.decodedToken ) {
+            return res.status(401).send({message:"A hozzáféréshez token szükséges!"})
+        }
+        if (!req.file) {
             return res.status(400).send({message:"Töltsön fel fájlt!"})
         }
         
