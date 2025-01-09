@@ -122,10 +122,11 @@ RETURNS bool DETERMINISTIC
 Begin
 declare ok bool;
 set ok = 0;
-select count(*) into ok from users where
+select UserId into ok from users where
  `Email` = email and `PassWord` = titok(pwd);
 RETURN ok;
 end
+drop Function login;
 
 select login('maci2@laci.com','macika')
 
@@ -137,4 +138,6 @@ insert into messages values (null,1,1,null);
 call `procInsertUser`('maci Laci','maci4@laci2.com','3654856569','bubu');
 commit;
 ROLLBACK;
+
+alter table users add avatar varchar(255);
 

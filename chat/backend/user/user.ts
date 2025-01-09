@@ -8,6 +8,7 @@ export interface IUser {
     PhoneNumber?: string
     PassWord?: string
     token?: string
+    avatar?: string
 }
 
 export class User implements IUser {
@@ -17,6 +18,7 @@ export class User implements IUser {
     PhoneNumber?: string
     PassWord?: string
     token?:string
+    avatar?:string
 
     // constructor (UserId:number | null,
     //      Name:string,
@@ -40,7 +42,7 @@ export class User implements IUser {
     async loadDataFromDB(UserId : number) : Promise<boolean> {
         try {
             const conn = await mysql.createConnection(dbConfig)
-            const[rows] : any =  await conn.execute('Select UserId,Name,Email,PhoneNumber from users where UserId = ?',[UserId])
+            const[rows] : any =  await conn.execute('Select UserId,Name,Email,PhoneNumber,avatar from users where UserId = ?',[UserId])
             Object.assign(this,rows[0])
             return true
         }
@@ -58,8 +60,6 @@ export class User implements IUser {
             console.log(err)
             return 0
         }
-        
-        
     }
 }
 

@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({
     extended: true
   }));
 
+
 app.use('/api',userRouter)
 app.use('/api',chatRouter)
 app.use('/',uploadRouter)
