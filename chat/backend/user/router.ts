@@ -4,7 +4,7 @@ import { updateAvatar, deleteAvatar } from '../avatar/avatar_modell'
 import auth from '../auth/auth'
 const router: Router = Router()
 
-router.get('/user/:UserId/',user.getUserFromId)
+router.get('/user/:UserId',user.getUserFromId)
 router.get('/user',user.getUsers)
 router.post('/user',user.addUser)
 router.put('/user',auth,user.updateUser)

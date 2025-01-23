@@ -116,19 +116,20 @@ select hali ('Norbi');
 create function titok (pwd varchar(50))
 RETURNS BLOB DETERMINISTIC
 RETURN SHA2(CONCAT(pwd,'sozas'),256);
+drop function login;
 create function login(email varchar(100),
  pwd varchar(100))
-RETURNS bool DETERMINISTIC
+RETURNS integer DETERMINISTIC
 Begin
-declare ok bool;
+declare ok integer;
 set ok = 0;
 select UserId into ok from users where
- `Email` = email and `PassWord` = titok(pwd);
+ users.`Email` = email and PassWord = titok(pwd);
 RETURN ok;
 end
 drop Function login;
 
-select login('maci2@laci.com','macika')
+select login('tesztelek@maci.hu','Titok12') as valami
 
 select titok('macika');
 start TRANSACTION
@@ -141,3 +142,5 @@ ROLLBACK;
 
 alter table users add avatar varchar(255);
 
+select UserId from users where
+ `Email` = 'tesztelek@maci.hu' and `PassWord` = titok('Tito123');

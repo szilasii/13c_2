@@ -50,11 +50,15 @@ export class File implements IFile {
 
     async saveUserAvatarToDb() {
         const conn = await mysql.createConnection(dbConfig)
+        conn.beginTransaction()
         try {
             const [rows]: any = await conn.execute('Update users set avatar = ? where UserId = ?', [this.FileId, this.UserId])
+            
+            conn.commit()
             return true
         } catch (err) {
             console.log(err)
+            conn.rollback()
             return false
         }
     }

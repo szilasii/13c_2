@@ -15,11 +15,26 @@ export const updateAvatar = async (req: Request, res: any) => {
             return res.status(400).send({ message: "Töltsön fel fájlt!" })
         }
 
+        const user = new User()
+        user.loadDataFromDB(res.decodedToken.UserId)
+        
         const file = new File(req.file, res.decodedToken.UserId)
-        file.saveUserAvatarToDb()
-
+        
+        const filePath = __dirname + process.env.AVATAR_DIR_NAME + "/" + user.avatar;
+        if (user.avatar!=null) {
+            fs.unlinkSync(filePath)
+        }
+         
+        if (await file.saveUserAvatarToDb()) {
+            res.status(500).send({ message: "Az avatar módosítása nem sikerült!" })
+            fs.unlinkSync(__dirname + process.env.AVATAR_DIR_NAME + "/" + req.file.filename)
+        return
+        }
+       
         res.status(200).send({ message: `Sikeresen feltöltött: ${req.file.originalname}` })
         console.log(req.file.filename)
+       
+        
     } catch (err) {
         res.status(500).send({ message: "A feltöltés nem sikerült!", error: err })
     }

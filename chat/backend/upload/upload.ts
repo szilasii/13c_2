@@ -25,4 +25,10 @@ const uploadFile = multer({
     limits: {fileSize: maxSize}
 }).single("file")
 
+const uploadFiles = multer({
+    storage:storage,
+    limits: {fileSize: maxSize}
+}).array("files",10)
+
 export const uploadMiddleware = util.promisify(uploadFile)
+export const uploadMiddlewareMultiple = util.promisify(uploadFiles)

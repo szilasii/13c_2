@@ -54,7 +54,7 @@ export function getUsers(req: Request, res: Response) {
             return
         }
     })
-    conn.query('select name,email,phoneNumber from users', (err, result: any) => {
+    conn.query('select name,email,phoneNumber,avatar from users', (err, result: any) => {
         if (err) {
             res.status(500).send({ error: "Hiba az adatok lekérdezése során!" })
             return
@@ -68,12 +68,13 @@ export function getUsers(req: Request, res: Response) {
     })
 }
 export async function addUser(req: Request, res: any) {
-    const user: User = req.body as User
+    
     
     try {
         const conn = await mysqlP.createConnection(dbConfig)
         await uploadMiddleware(req, res)
-        const [rows]: any = await conn.execute('insert into users values(null,?,?,?,?,null)', [user.Name, user.Email, user.PhoneNumber, user.PassWord])
+        const user: User = req.body as User
+        const [rows]: any = await conn.execute('insert into users values(null,?,?,?,?,?)', [user.Name, user.Email, user.PhoneNumber, user.PassWord,req.file?.filename || null])
         user.UserId = rows.insertId
         user.PassWord = undefined
         res.status(201).send({ message: "Sikeres adatrögzítés", data: user as IUser })
