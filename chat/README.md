@@ -5,7 +5,32 @@ A dukumentáció leírja, *milyen végpontok* tartoznak a `backend` alkalmazásu
     Name : "Maci Laci",
 } `
 
-[ maci.hu ]( maci.hu )
+[ maci.hu ]( http://maci.hu )
+
+```
+npm i
+git commmit
+```
 
 ## második szint
+
+- listaelem1
+* listaelem2
++ listaelem3
+
+1. listaelem
+2. listaelem2
+
+1. listaelem
+   - listaelem
+     - listaelem
+
+- [x] Feladat1
+- [ ] Feladat2
+- [ ] Feladat3 :tada:
+
+
 ### harmadik szint
+
+link a cimhez: [cimhez](#chat-alkalmazás-backend-végpontok)<br/>
+masodik szint: [masidik](#harmadik-szint)
