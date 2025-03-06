@@ -45,7 +45,7 @@ szöveg2[^2]
 >[!WARNING]
 > Ez egy figyelmeztetés
 
->[IMPORTANT]
+>[!IMPORTANT]
 > info
 
 
