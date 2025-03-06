@@ -36,6 +36,9 @@ szoveg1[^1]
 
 szöveg2[^2]
 
+> [!NOTE]
+> Megjegyzés
+
 
 link a cimhez: [cimhez](#chat-alkalmazás-backend-végpontok)<br/>
 masodik szint: [masidik](#harmadik-szint)
