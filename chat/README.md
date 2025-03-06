@@ -48,6 +48,9 @@ szöveg2[^2]
 >[!IMPORTANT]
 > info
 
+>[!CAUTION]
+> Tanács
+
 
 link a cimhez: [cimhez](#chat-alkalmazás-backend-végpontok)<br/>
 masodik szint: [masidik](#harmadik-szint)
