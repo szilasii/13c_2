@@ -39,6 +39,15 @@ szöveg2[^2]
 > [!NOTE]
 > Megjegyzés
 
+>[!TIP]
+> Ez egy tip
+
+>[!WARNING]
+> Ez egy figyelmeztetés
+
+>[IMPORTANT]
+> info
+
 
 link a cimhez: [cimhez](#chat-alkalmazás-backend-végpontok)<br/>
 masodik szint: [masidik](#harmadik-szint)
