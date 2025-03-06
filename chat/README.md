@@ -32,5 +32,13 @@ git commmit
 
 ### harmadik szint
 
+szoveg1[^1]
+
+szöveg2[^2]
+
+
 link a cimhez: [cimhez](#chat-alkalmazás-backend-végpontok)<br/>
 masodik szint: [masidik](#harmadik-szint)
+
+[^1]: lábjágyzet1
+[^2]: lábjegyzet2
