@@ -13,7 +13,7 @@ git commmit
 ```
 
 ## második szint
-
+<!-- Lista definiciók -->
 - listaelem1
 * listaelem2
 + listaelem3
@@ -25,17 +25,22 @@ git commmit
    - listaelem
      - listaelem
 
+<!-- Feladat lista definicíó -->
 - [x] Feladat1
 - [ ] Feladat2
 - [ ] Feladat3 :tada:
 
 
 ### harmadik szint
-
+<!-- lábjegyzet -->
 szoveg1[^1]
 
 szöveg2[^2]
 
+[^1]: lábjágyzet1
+[^2]: lábjegyzet2
+
+<!-- Figyelmeztetések -->
 > [!NOTE]
 > Megjegyzés
 
@@ -51,9 +56,7 @@ szöveg2[^2]
 >[!CAUTION]
 > Tanács
 
-
+<!-- Horgonyok -->
 link a cimhez: [cimhez](#chat-alkalmazás-backend-végpontok)<br/>
 masodik szint: [masidik](#harmadik-szint)
 
-[^1]: lábjágyzet1
-[^2]: lábjegyzet2

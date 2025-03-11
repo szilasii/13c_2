@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module"></script>
+    <script>
+const socket = new WebSocket("ws://192.168.0.128:5555");
+const message = [];
+
+socket.addEventListener("open",(event) => {
+
+})
+
+socket.addEventListener("message", (event) => {
+    message.push(event.data)
+})
+
+socket.addEventListener("close",(event) => {
+
+})
+
+socket.addEventListener("error",(event) => {
+
+})
+function sendMessage() {
+    const messageInput = document.getElementById("message");
+    const message = messageInput.value
+    socket.send(message)
+    messageInput.value=""
+}
+
+
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="chat"></div>
+    <label for="sender">Küldő</label>
+    <input type="text" name="sender" id="sender">
+    <label for="message">üzenet</label>
+    <input type="text" name="message" id="message">
+    <input type="button" value="Küld" onclick="sendMessage()">
+    <script>
+        //  const socket = new WebSocket("ws://localhost:5555")
+        socket.addEventListener("message",(event) => {
+            const chat = document.getElementById("chat")
+            const message = document.createElement('p')
+            const adat = event.data
+            adat.text().then((text) => {
+                message.textContent = text
+            })
+            chat.appendChild(message)
+        })
+    </script>    
+</body>
+</html>
