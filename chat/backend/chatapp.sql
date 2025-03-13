@@ -1,10 +1,12 @@
--- Active: 1725523237274@@127.0.0.1@3306/chatapp
+-- Active: 1741853165177@@127.0.0.1@3306/chatapp
+
+
 
 
 --
 -- Adatbázis: `chatapp`
 --
-CREATE DATABASE IF NOT EXISTS `chatapp` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
 USE `chatapp`;
 
  CREATE TABLE IF NOT EXISTS `blocks` (
@@ -87,10 +89,10 @@ new.password = titok(new.password);
 
 delimiter ;
 
-insert into users values (null,'szilasi','Maci2@laci.hu','12345656','macika');
-create PROCEDURE procInsertUser (in nev varchar(100),email VARCHAR(100),tel varchar(15),pwd varchar(20) )
+insert into users values (null,'szilasi','Maci2@laci.hu','12345656','macika',null);
+create PROCEDURE procInsertUser (in nev varchar(100),email VARCHAR(100),tel varchar(15),pwd varchar(20),avatar varchar(50)  )
 Begin
-    insert into users values (null,nev,email,tel,pwd);
+    insert into users values (null,nev,email,tel,pwd,avatar);
 End
 
 create procedure countUser1 (out darab int)
