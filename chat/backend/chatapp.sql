@@ -1,4 +1,4 @@
--- Active: 1741853165177@@127.0.0.1@3306/chatapp
+-- Active: 1743667113737@@127.0.0.1@3306/chatapp
 
 
 
@@ -106,7 +106,7 @@ call `countUser1`(@darab);
 select @darab;
 
 Select lower('ASDFFGH');
-call `procInsertUser`('maci Laci','maci@laci2.com','3654856569','bubu');
+call `procInsertUser`('maci Laci','maci@laci2.com','3654856569','bubu',null);
 
 
 select * from users;
@@ -131,7 +131,7 @@ RETURN ok;
 end
 drop Function login;
 
-select login('tesztelek@maci.hu','Titok12') as valami
+select login('maci@laci2.com','bubu') as valami
 
 select titok('macika');
 start TRANSACTION
